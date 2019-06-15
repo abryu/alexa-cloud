@@ -23,7 +23,7 @@ public class TestJenkins {
 
   }
 
-  @Test
+  @Ignore
   public void testBuildItem() {
 
     ResourcesManipulation resourcesManipulation = new Jenkins(aws, "build", test_item);

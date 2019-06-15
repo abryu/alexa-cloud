@@ -31,7 +31,7 @@ public class TestGCP {
     assertTrue(response.contains("You have "));
   }
 
-   @Test
+   @Ignore
   public void testGcpStackdriveMonitoring() {
     ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws,"serviceruntimeapirequestlatencies");
     String response = resourcesManipulation.manipulateResources();
