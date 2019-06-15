@@ -17,7 +17,6 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
   private AwsUtils awsUtils;
   private Configuration configuration;
   private String resourceType;
-  private String metric;
   private HashMap<String, GcpMetrics.MetricEntry> map;
   private String result;
 
@@ -38,12 +37,15 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
     String projectId = configuration.getId();
     ProjectName name = ProjectName.of(projectId);
 
+
     long startMillis = System.currentTimeMillis() - ((60 * 360) * 1000);
 
     TimeInterval interval = TimeInterval.newBuilder()
             .setStartTime(Timestamps.fromMillis(startMillis))
             .setEndTime(Timestamps.fromMillis(System.currentTimeMillis()))
             .build();
+
+    System.out.println("Resource type " + resourceType);
 
     ListTimeSeriesRequest.Builder requestBuilder = ListTimeSeriesRequest.newBuilder()
             .setName(name.toString())
@@ -73,7 +75,12 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
   @Override
   public String getResult() {
 
-    MailgunUtils.sendEmail(resourceType, result);
+    System.out.println("sending " + result.toString());
+
+    new Thread(() -> {
+      MailgunUtils.sendEmail(resourceType, result);
+    }).start();
+
     return "Request has been made, Please check your email";
   }
 

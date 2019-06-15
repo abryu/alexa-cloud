@@ -10,19 +10,19 @@ public class GcpMetrics {
 
     HashMap<String, MetricEntry> map = new HashMap<>();
 
-    map.put("function_execution_count",
+    map.put("functionexecutioncount",
             new MetricEntry("cloudfunctions.googleapis.com/function/execution_count", ""));
 
-    map.put("dataflow_pd",
+    map.put("dataflowpd",
             new MetricEntry("dataflow.googleapis.com/job/total_pd_usage_time", ""));
 
-    map.put("serviceruntime_api_request_latencies",
+    map.put("serviceruntimeapirequestlatencies",
             new MetricEntry("serviceruntime.googleapis.com/api/request_latencies", ""));
 
-    map.put("storage_api_request_count",
+    map.put("storageapirequestcount",
             new MetricEntry("storage.googleapis.com/api/request_count", ""));
 
-    map.put("cloud_sql_cpu_usage",
+    map.put("cloudsqlcpuusage",
             new MetricEntry("cloudsql.googleapis.com/database/cpu/usage_time", ""));
 
     return map;

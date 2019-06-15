@@ -33,7 +33,7 @@ public class TestGCP {
 
    @Test
   public void testGcpStackdriveMonitoring() {
-    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws,"function_execution_count");
+    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws,"serviceruntimeapirequestlatencies");
     String response = resourcesManipulation.manipulateResources();
     assertNotNull(response);
     assertTrue(response.contains("Request has been made"));

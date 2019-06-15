@@ -9,9 +9,9 @@ import static org.junit.Assert.*;
 public class TestJenkins {
 
   private AwsUtils aws = new AwsUtils("integration");
-  private String test_item = "sample-job2";
+  private String test_item = "web";
 
-  @Ignore
+  @Test
   public void testListItems() {
 
     ResourcesManipulation resourcesManipulation = new Jenkins(aws, "list", "item doesn't matter");
@@ -33,7 +33,7 @@ public class TestJenkins {
 
   }
 
-  @Ignore
+  @Test
   public void testListQueue() {
 
     ResourcesManipulation resourcesManipulation = new Jenkins(aws, "queue", "item doesn't matter");
@@ -45,7 +45,7 @@ public class TestJenkins {
 
   }
 
-  @Ignore
+  @Test
   public void testExecutors() {
 
     ResourcesManipulation resourcesManipulation = new Jenkins(aws, "executors", "item doesn't matter");

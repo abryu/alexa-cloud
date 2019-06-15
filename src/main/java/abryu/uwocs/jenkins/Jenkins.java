@@ -70,10 +70,6 @@ public class Jenkins implements ResourcesManipulation {
     StringBuilder sb = new StringBuilder();
     try {
 
-      //System.out.println("test + " + jenkinsServer.getJob("sample-maven").getLastSuccessfulBuild().getTestReport().getTotalCount());
-
-      //MailgunUtils.sendEmail("s", "s");
-
       ComputerSet set = jenkinsServer.getComputerSet();
       int busy = set.getBusyExecutors();
       int total = set.getTotalExecutors();
@@ -126,6 +122,8 @@ public class Jenkins implements ResourcesManipulation {
 
   private void buildItem(String jobName) {
 
+    /*
+
     JenkinsClient client =
             new JenkinsClient.Builder()
                     .endPoint(configuration.getId())
@@ -136,14 +134,15 @@ public class Jenkins implements ResourcesManipulation {
     else
       result = jobName + " failed to start";
 
-    /*
+*/
+
     try {
       jenkinsServer.getJob(jobName).build();
       result = jobName + " has been triggered ; please check the queue";
     } catch (IOException e) {
       e.printStackTrace();
     }
-    */
+
   }
 
   private void listItems() {

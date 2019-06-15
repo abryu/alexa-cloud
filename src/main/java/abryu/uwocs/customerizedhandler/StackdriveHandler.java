@@ -34,17 +34,25 @@ public class StackdriveHandler implements RequestHandler {
 
     Map<String, Slot> slots = intent.getSlots();
 
+    System.out.println("string fy " + intent.getSlots().toString());
+
     String speechText = "null", repromptText = "null";
 
     Slot projectNameSlot = slots.get(AlexaConstants.STACKDRIVE_SLOT);
     Slot resourceSlot = slots.get(AlexaConstants.STACKDRIVE_RESOURCE);
 
     if (projectNameSlot == null) {
+
       speechText = "Missing project name slot";
+
       repromptText = "Please provide your project name";
+
     } else if (resourceSlot == null) {
+
       speechText = "Missing resource slot";
+
       repromptText = "Please provide your resource";
+
     } else {
 
       AwsUtils aws = new AwsUtils(projectNameSlot.getValue());
@@ -53,9 +61,13 @@ public class StackdriveHandler implements RequestHandler {
 
       ResourcesManipulation stackdrive = null;
 
+      String resource = resourceSlot.getValue().toLowerCase().replaceAll("\\s+", "");
+
+      System.out.println("Resource is  " + resource);
+
       if (configuration.getType().equals("GCP")) {
 
-        stackdrive = new GcpStackdriverMonitoring(aws, resourceSlot.getValue());
+        stackdrive = new GcpStackdriverMonitoring(aws, resource);
 
       } else {
 
