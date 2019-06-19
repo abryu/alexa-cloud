@@ -3,6 +3,7 @@ package abryu.uwocs.handler;
 import com.amazon.ask.dispatcher.exception.ExceptionHandler;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.exception.AskSdkException;
 import com.amazon.ask.model.Response;
 
 import java.util.Optional;
@@ -11,7 +12,7 @@ public class ErrorHandler implements ExceptionHandler {
 
   @Override
   public boolean canHandle(HandlerInput handlerInput, Throwable throwable) {
-    return true;
+    return throwable instanceof AskSdkException;
   }
 
   @Override
