@@ -83,7 +83,7 @@ public class StackdriveHandler implements RequestHandler {
             .withSimpleCard("ColorSession", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
-            .withShouldEndSession(false)
+            .withShouldEndSession(true)
             .build();
   }
 }
