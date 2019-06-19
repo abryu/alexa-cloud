@@ -5,6 +5,11 @@ import com.amazon.ask.Skill;
 import com.amazon.ask.SkillStreamHandler;
 import com.amazon.ask.Skills;
 import abryu.uwocs.handler.*;
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.model.Response;
+import com.amazon.ask.request.exception.handler.GenericExceptionHandler;
+
+import java.util.Optional;
 
 public class CloudMonitorStreamHandler extends SkillStreamHandler {
 
@@ -21,6 +26,7 @@ public class CloudMonitorStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new HelpIntentHandler(),
                     new FallbackIntentHandler())
+            .addExceptionHandlers((GenericExceptionHandler<HandlerInput, Optional<Response>>) new ErrorHandler())
             // Add your skill id below
             .withSkillId(ProjectConfigConstants.ALEXA_SKILL_ID)
             .build();

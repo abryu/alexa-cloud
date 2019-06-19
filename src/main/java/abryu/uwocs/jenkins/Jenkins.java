@@ -60,9 +60,12 @@ public class Jenkins implements ResourcesManipulation {
 
       checkExecutors();
 
+    } else if (action.equals("result")) {
+
     }
 //https://github.com/jenkinsci/java-client-api/blob/master/jenkins-client/src/test/java/com/offbytwo/jenkins/integration/BuildJobTestReports.java
   }
+
 
   private void checkExecutors() {
 
