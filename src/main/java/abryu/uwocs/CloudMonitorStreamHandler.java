@@ -26,7 +26,7 @@ public class CloudMonitorStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new HelpIntentHandler(),
                     new FallbackIntentHandler())
-            .addExceptionHandlers(new ErrorHandler())
+            //.addExceptionHandlers(new ErrorHandler())
             // Add your skill id below
             .withSkillId(ProjectConfigConstants.ALEXA_SKILL_ID)
             .build();
