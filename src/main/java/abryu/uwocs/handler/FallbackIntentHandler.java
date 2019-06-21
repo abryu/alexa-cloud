@@ -21,7 +21,7 @@ public class FallbackIntentHandler implements RequestHandler {
     String speechText = AlexaConstants.FALLBACK_INTENT;
     return input.getResponseBuilder()
             .withSpeech(speechText)
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withReprompt(speechText)
             .build();
   }

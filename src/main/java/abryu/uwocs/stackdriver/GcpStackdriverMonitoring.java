@@ -1,10 +1,12 @@
 package abryu.uwocs.stackdriver;
 
 import abryu.uwocs.Configuration;
+import abryu.uwocs.Notification;
+import abryu.uwocs.ProjectConfigConstants;
 import abryu.uwocs.ResourcesManipulation;
 import abryu.uwocs.helpers.AwsUtils;
 import abryu.uwocs.helpers.GcpUtils;
-import abryu.uwocs.helpers.MailgunUtils;
+import abryu.uwocs.notification.MailgunUtils;
 import com.google.cloud.monitoring.v3.MetricServiceClient;
 import com.google.monitoring.v3.*;
 import com.google.protobuf.util.Timestamps;
@@ -18,7 +20,7 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
   private Configuration configuration;
   private String resourceType;
   private HashMap<String, GcpMetrics.MetricEntry> map;
-  private String result;
+  public String result;
 
   public GcpStackdriverMonitoring(AwsUtils awsUtils, String resourceType) {
     this.awsUtils = awsUtils;
@@ -34,11 +36,13 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
     // Instantiates a client
     MetricServiceClient metricServiceClient = null;
     metricServiceClient = GcpUtils.createMetricServiceClient(awsUtils);
+    if (metricServiceClient == null)
+      return;
     String projectId = configuration.getId();
     ProjectName name = ProjectName.of(projectId);
 
 
-    long startMillis = System.currentTimeMillis() - ((60 * 360) * 1000);
+    long startMillis = System.currentTimeMillis() - ((60 * 60 * ProjectConfigConstants.STACKDRIVE_MINUTE_INTERVAL) * 1000);
 
     TimeInterval interval = TimeInterval.newBuilder()
             .setStartTime(Timestamps.fromMillis(startMillis))
@@ -72,16 +76,32 @@ public class GcpStackdriverMonitoring implements ResourcesManipulation {
 
   }
 
+  public boolean requestSuccessful() {
+    return result.length() != 0;
+  }
+
+  @Override
+  public String getResult(Notification notification) {
+    notification.send("Alexa Cloud", result.toString().substring(0, 1500));
+    return null;
+  }
+
   @Override
   public String getResult() {
+
+    return result.toString();
+
+    /*
 
     System.out.println("sending " + result.toString());
 
     new Thread(() -> {
-      MailgunUtils.sendEmail(resourceType, result);
+      //MailgunUtils.sendEmail(resourceType, result);
     }).start();
 
     return "Request has been made, Please check your email";
+
+    */
   }
 
   @Override

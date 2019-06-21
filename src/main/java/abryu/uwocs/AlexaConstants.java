@@ -30,6 +30,7 @@ public class AlexaConstants {
   // Stackdrive
   public static final String STACKDRIVE_SLOT = "alias";
   public static final String STACKDRIVE_RESOURCE = "resource";
+  public static final String STACKDRIVE_NOTIFICATION = "notification";
 
   // Jenkins
   public static final String JENKINS_SLOT = "alias";

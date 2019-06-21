@@ -19,4 +19,14 @@ public class ProjectConfigConstants {
   public static final String MAILGUN_API_KEY = System.getenv("MAILGUN_API_KEY");
 
   public static final String MAILGUN_RECEIVER = System.getenv("MAILGUN_RECEIVER");
+
+  public static final String TWILIO_RECEIVER = System.getenv("TWILIO_RECEIVER");
+
+  public static final String TWILIO_ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+
+  public static final String TWILIO_AUTH = System.getenv("TWILIO_AUTH");
+
+  public static final String TWILIO_SENDER = System.getenv("TWILIO_SENDER");
+
+  public static final int STACKDRIVE_MINUTE_INTERVAL = 60;
 }

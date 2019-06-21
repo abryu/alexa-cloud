@@ -64,7 +64,7 @@ public class ListInstancesHandler implements RequestHandler {
     }
 
     return handlerInput.getResponseBuilder()
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
             .withShouldEndSession(true)

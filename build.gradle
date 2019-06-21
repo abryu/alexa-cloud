@@ -7,6 +7,7 @@ repositories {
 
 dependencies {
     compile(
+            'com.google.code.gson:gson:2.3.1',
             'com.amazonaws:aws-java-sdk:1.11.163',
             'com.amazon.alexa:ask-sdk:2.18.0',
             'com.google.apis:google-api-services-compute:v1-rev214-1.25.0',
@@ -19,7 +20,8 @@ dependencies {
             'com.google.guava:guava:20.0',
             'com.offbytwo.jenkins:jenkins-client:0.3.8',
             'com.mashape.unirest:unirest-java:1.4.9',
-            'com.cdancy:jenkins-rest:0.0.18'
+            'com.cdancy:jenkins-rest:0.0.18',
+            'com.twilio.sdk:twilio:7.39.0'
     )
 }
 

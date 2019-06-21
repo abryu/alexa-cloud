@@ -23,7 +23,7 @@ public class LaunchRequestHandler implements RequestHandler {
     String speechText = AlexaConstants.LAUNCH_REQUEST_WELCOME_STRING;
     String repromptText = "Please tell me your favorite color by saying, my favorite color is red";
     return input.getResponseBuilder()
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
             .build();

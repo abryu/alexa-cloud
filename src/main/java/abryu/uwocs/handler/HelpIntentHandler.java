@@ -20,7 +20,7 @@ public class HelpIntentHandler implements RequestHandler {
     String speechText = AlexaConstants.HELP_INTENT_STRING;
     String repromptText = "Please tell me your favorite color by saying, my favorite color is red";
     return input.getResponseBuilder()
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
             .withShouldEndSession(true)

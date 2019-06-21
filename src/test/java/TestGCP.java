@@ -3,6 +3,7 @@ import abryu.uwocs.billing.GcpBilling_Impl;
 import abryu.uwocs.createinstances.GcpCreateInstance_Impl;
 import abryu.uwocs.helpers.AwsUtils;
 import abryu.uwocs.listinstances.GcpListInstances_Impl;
+import abryu.uwocs.notification.TwilioUtils;
 import abryu.uwocs.stackdriver.GcpStackdriverMonitoring;
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import org.junit.Ignore;
@@ -17,7 +18,7 @@ public class TestGCP {
 
   @Ignore
   public void testCreateInstance() {
-    ResourcesManipulation resourcesManipulation = new GcpCreateInstance_Impl(aws,"web");
+    ResourcesManipulation resourcesManipulation = new GcpCreateInstance_Impl(aws, "web");
     String response = resourcesManipulation.manipulateResources();
     assertNotNull(response);
     assertTrue(response.contains("Request succeed ; Please check the web console for details"));
@@ -31,12 +32,13 @@ public class TestGCP {
     assertTrue(response.contains("You have "));
   }
 
-   @Ignore
+  @Test
   public void testGcpStackdriveMonitoring() {
-    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws,"serviceruntimeapirequestlatencies");
+    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws, "serviceruntimeapirequestlatencies");
     String response = resourcesManipulation.manipulateResources();
     assertNotNull(response);
-    assertTrue(response.contains("Request has been made"));
+    assertTrue(response.contains("Got timeseries"));
+    resourcesManipulation.getResult(new TwilioUtils());
   }
 
   @Test

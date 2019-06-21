@@ -6,7 +6,10 @@ import abryu.uwocs.ResourcesManipulation;
 import abryu.uwocs.helpers.AwsUtils;
 import abryu.uwocs.listinstances.AwsListInstances_Impl;
 import abryu.uwocs.listinstances.GcpListInstances_Impl;
+import abryu.uwocs.notification.MailgunUtils;
+import abryu.uwocs.notification.TwilioUtils;
 import abryu.uwocs.stackdriver.GcpStackdriverMonitoring;
+import com.amazon.ask.attributes.AttributesManager;
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
 import com.amazon.ask.model.Intent;
@@ -34,7 +37,25 @@ public class StackdriveHandler implements RequestHandler {
 
     Map<String, Slot> slots = intent.getSlots();
 
-    System.out.println("string fy " + intent.getSlots().toString());
+    AttributesManager attributesManager = handlerInput.getAttributesManager();
+    Map<String, Object> attributes = attributesManager.getSessionAttributes();
+
+    if (attributes.containsKey("result")) {
+
+      String userNotification = slots.get(AlexaConstants.STACKDRIVE_NOTIFICATION).getValue();
+
+      System.out.println("got notification  " + userNotification);
+
+      if (userNotification.equals("text")) {
+        new TwilioUtils().send("Alexa Cloud", attributes.get("result").toString());
+      } else {
+        new MailgunUtils().send("Alexa Cloud", attributes.get("result").toString());
+      }
+
+      return handlerInput.getResponseBuilder().withSpeech("Please check").withShouldEndSession(true).build();
+
+    }
+
 
     String speechText = "null", repromptText = "null";
 
@@ -75,15 +96,27 @@ public class StackdriveHandler implements RequestHandler {
 
       }
 
-      speechText = stackdrive.manipulateResources();
+      //https://developer.amazon.com/docs/custom-skills/manage-skill-session-and-session-attributes.html
+
+      stackdrive.makeRequest();
+
+      if (stackdrive.requestSuccessful()) {
+
+        speechText = "Request sent ; Please choose use email or text message to receive result";
+        attributes.put("result", stackdrive.getResult());
+        attributesManager.setSessionAttributes(attributes);
+
+      } else {
+        speechText = "Request is unsuccessful";
+      }
 
     }
 
     return handlerInput.getResponseBuilder()
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
-            .withShouldEndSession(true)
+            .withShouldEndSession(false)
             .build();
   }
 }

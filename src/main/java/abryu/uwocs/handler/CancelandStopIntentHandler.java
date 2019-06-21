@@ -19,7 +19,7 @@ public class CancelandStopIntentHandler implements RequestHandler {
   public Optional<Response> handle(HandlerInput input) {
     return input.getResponseBuilder()
             .withSpeech(AlexaConstants.CANCEL_AND_STOP_INTENT)
-            .withSimpleCard("ColorSession", "Goodbye")
+            .withSimpleCard("CloudMonitor", "Goodbye")
             .build();
   }
 }

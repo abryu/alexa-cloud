@@ -1,6 +1,7 @@
 package abryu.uwocs.billing;
 
 import abryu.uwocs.Configuration;
+import abryu.uwocs.Notification;
 import abryu.uwocs.ResourcesManipulation;
 import abryu.uwocs.helpers.AwsUtils;
 import abryu.uwocs.helpers.GcpUtils;
@@ -66,6 +67,16 @@ public class GcpBilling_Impl implements ResourcesManipulation {
   public String manipulateResources() {
     makeRequest();
     return getResult();
+  }
+
+  @Override
+  public boolean requestSuccessful() {
+    return false;
+  }
+
+  @Override
+  public String getResult(Notification notification) {
+    return null;
   }
 
 }

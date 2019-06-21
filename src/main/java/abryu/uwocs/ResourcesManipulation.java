@@ -8,4 +8,8 @@ public interface ResourcesManipulation {
 
   String manipulateResources();
 
+  boolean requestSuccessful();
+
+  String getResult(Notification notification);
+
 }

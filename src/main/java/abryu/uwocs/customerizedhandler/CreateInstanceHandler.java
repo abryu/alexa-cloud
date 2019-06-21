@@ -51,7 +51,7 @@ public class CreateInstanceHandler implements RequestHandler {
 
 
     return handlerInput.getResponseBuilder()
-            .withSimpleCard("ColorSession", speechText)
+            .withSimpleCard("CloudMonitor", speechText)
             .withSpeech(speechText)
             .withReprompt(repromptText)
             .withShouldEndSession(true)
