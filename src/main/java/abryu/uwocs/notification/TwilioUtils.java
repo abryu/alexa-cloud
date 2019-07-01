@@ -12,7 +12,6 @@ public class TwilioUtils implements Notification {
 
     Twilio.init(ProjectConfigConstants.TWILIO_ACCOUNT_SID, ProjectConfigConstants.TWILIO_AUTH);
 
-
     Message message = Message.creator(new PhoneNumber(ProjectConfigConstants.TWILIO_RECEIVER), new PhoneNumber(ProjectConfigConstants.TWILIO_SENDER), body).create();
 
     System.out.println(message.getSid());

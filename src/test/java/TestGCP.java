@@ -32,7 +32,7 @@ public class TestGCP {
     assertTrue(response.contains("You have "));
   }
 
-  @Test
+  @Ignore
   public void testGcpStackdriveMonitoring() {
     ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws, "service");
     String response = resourcesManipulation.manipulateResources();
