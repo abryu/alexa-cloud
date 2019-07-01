@@ -34,7 +34,7 @@ public class TestGCP {
 
   @Test
   public void testGcpStackdriveMonitoring() {
-    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws, "serviceruntimeapirequestlatencies");
+    ResourcesManipulation resourcesManipulation = new GcpStackdriverMonitoring(aws, "service");
     String response = resourcesManipulation.manipulateResources();
     assertNotNull(response);
     assertTrue(response.contains("Got timeseries"));
