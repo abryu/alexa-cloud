@@ -7,23 +7,62 @@ import abryu.uwocs.helpers.AwsUtils;
 import abryu.uwocs.helpers.GcpUtils;
 import com.google.api.services.compute.Compute;
 import com.google.api.services.compute.model.Instance;
+import com.google.api.services.compute.model.InstanceTemplate;
+import com.google.api.services.compute.model.InstanceTemplateList;
 import com.google.api.services.compute.model.Operation;
 import org.apache.beam.repackaged.beam_sdks_java_core.net.bytebuddy.utility.RandomString;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-public class GcpCreateInstance_Impl implements ResourcesManipulation {
+public class GcpCreateInstance_Impl implements ResourcesManipulation, CreateInstance {
 
   private AwsUtils awsUtils;
   private Configuration configuration;
   private String templateName;
   private boolean result;
 
+  public GcpCreateInstance_Impl(AwsUtils awsUtils) {
+    this.awsUtils = awsUtils;
+    this.configuration = awsUtils.getConfigObject();
+  }
+
   public GcpCreateInstance_Impl(AwsUtils awsUtils, String templateName) {
     this.awsUtils = awsUtils;
     this.templateName = templateName;
     this.configuration = awsUtils.getConfigObject();
+  }
+
+  @Override
+  public String getAvailableTemplates() {
+
+    String templates = "";
+
+    try {
+
+      InstanceTemplateList response;
+
+      Compute computeService = GcpUtils.createComputeService(awsUtils);
+
+      Compute.InstanceTemplates.List request = computeService.instanceTemplates().list(configuration.getId());
+
+      do {
+        response = request.execute();
+        if (response.getItems() == null) {
+          continue;
+        }
+        for (InstanceTemplate instanceTemplate : response.getItems()) {
+          templates += instanceTemplate.getName() + " ";
+        }
+        request.setPageToken(response.getNextPageToken());
+      } while (response.getNextPageToken() != null);
+    } catch (GeneralSecurityException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return templates;
   }
 
   @Override

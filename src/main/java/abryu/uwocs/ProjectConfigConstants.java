@@ -8,8 +8,6 @@ public class ProjectConfigConstants {
 
   public static final String S3_BUCKET_NAME = System.getenv("S3_BUCKET_NAME");
 
-  public static final String S3_ENDPOINT = "s3://" + S3_BUCKET_NAME + "/";
-
   public static final String S3_CREDENTIALS = "credentials/";
 
   public static final String S3_CONFIGURATIONS = "configurations/";

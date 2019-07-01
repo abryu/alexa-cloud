@@ -16,6 +16,8 @@ public class CloudMonitorStreamHandler extends SkillStreamHandler {
   private static Skill getSkill() {
     return Skills.standard()
             .addRequestHandlers(
+                    new CreateInstanceInteraction(),
+                    new StackdriveInteractionHandler(),
                     new JenkinsHandler(),
                     new StackdriveHandler(),
                     new CreateInstanceHandler(),
@@ -26,8 +28,6 @@ public class CloudMonitorStreamHandler extends SkillStreamHandler {
                     new SessionEndedRequestHandler(),
                     new HelpIntentHandler(),
                     new FallbackIntentHandler())
-            //.addExceptionHandlers(new ErrorHandler())
-            // Add your skill id below
             .withSkillId(ProjectConfigConstants.ALEXA_SKILL_ID)
             .build();
   }
@@ -35,6 +35,5 @@ public class CloudMonitorStreamHandler extends SkillStreamHandler {
   public CloudMonitorStreamHandler() {
     super(getSkill());
   }
-
 
 }
